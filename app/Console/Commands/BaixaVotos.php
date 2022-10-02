@@ -22,7 +22,7 @@ class BaixaVotos extends Command
         $apuracao = [
             'id' => 1,
             'eleitores' => \intval($resposta->json('e', 0)),
-            'urnas_apuradas' => Str::of($resposta->json('pesi', 0.0))->replace(',', '.')->toFloat(),
+            'urnas_apuradas' => Str::of($resposta->json('pst', 0.0))->replace(',', '.')->toFloat(),
             'atualizado_em' => now('America/Sao_Paulo')->toDateTimeString(),
         ];
 
