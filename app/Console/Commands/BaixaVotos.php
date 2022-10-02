@@ -19,14 +19,9 @@ class BaixaVotos extends Command
     {
         $resposta = Http::retry(3, 10_000)->get(self::URL);
 
-        $apuracao = [
-            'id' => 1,
-            'eleitores' => \intval($resposta->json('e', 0)),
-            'urnas_apuradas' => Str::of($resposta->json('pst', 0.0))->replace(',', '.')->toFloat(),
-            'atualizado_em' => now('America/Sao_Paulo')->toDateTimeString(),
-        ];
-
-        Storage::drive('local')->put('apuracao.json', \json_encode([$apuracao], \JSON_THROW_ON_ERROR));
+        if (! $resposta->ok()) {
+            return Command::FAILURE;
+        }
 
         $registros = \collect($resposta->json('cand', []))
             ->map(static fn (array $registro, int $index) => [
@@ -44,6 +39,15 @@ class BaixaVotos extends Command
         }
 
         Storage::drive('local')->put('votos.json', \json_encode($registros->all(), \JSON_THROW_ON_ERROR));
+
+        $apuracao = [
+            'id' => 1,
+            'eleitores' => \intval($resposta->json('e', 0)),
+            'urnas_apuradas' => Str::of($resposta->json('pst', 0.0))->replace(',', '.')->toFloat(),
+            'atualizado_em' => now('America/Sao_Paulo')->toDateTimeString(),
+        ];
+
+        Storage::drive('local')->put('apuracao.json', \json_encode([$apuracao], \JSON_THROW_ON_ERROR));
 
         return Command::SUCCESS;
     }
