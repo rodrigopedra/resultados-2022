@@ -19,6 +19,14 @@ class BaixaVotos extends Command
     {
         $resposta = Http::retry(3, 10_000)->get(self::URL);
 
+        $apuracao = [
+            'id' => 1,
+            'eleitores' => \intval($resposta->json('e', 0)),
+            'urnas_apuradas' => Str::of($resposta->json('pesi', 0.0))->replace(',', '.')->toFloat(),
+        ];
+
+        Storage::drive('local')->put('apuracao.json', \json_encode([$apuracao], \JSON_THROW_ON_ERROR));
+
         $registros = \collect($resposta->json('cand', []))
             ->map(static fn (array $registro, int $index) => [
                 'id' => \intval($registro['seq'] ?? $index),

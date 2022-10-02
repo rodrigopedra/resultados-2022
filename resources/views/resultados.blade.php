@@ -11,7 +11,13 @@
 
 <body>
 <main class="container my-4">
-    <h1>Resultados 2022</h1>
+    <header class="d-flex align-items-end mb-3">
+        <h1 class="mb-0">Resultados 2022</h1>
+
+        <span class="ms-3">
+            Urnas apuradas: {{ \number_format($apuracao['urnas_apuradas'] ?? 0.0, 2, '.', ',') }}%
+        </span>
+    </header>
 
     <section class="card">
         <div class="table-responsive">
@@ -38,8 +44,8 @@
                                     </svg>
                                 @endif
                             </td>
-                            <td class="text-center">{{ \number_format($resultado['votos'], 0, '.', '.') }}</td>
-                            <td class="text-center">{{ \number_format($resultado['percentual'], 2, '.', '.') }}%</td>
+                            <td class="text-center">{{ \number_format($resultado['votos'], 0, '.', ',') }}</td>
+                            <td class="text-center">{{ \number_format($resultado['percentual'], 2, '.', ',') }}%</td>
                         </tr>
                     @empty
                         <tr>

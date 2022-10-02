@@ -6,32 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Sushi\Sushi;
 
-class Resultado extends Model
+class Apuracao extends Model
 {
     use Sushi;
 
     protected $casts = [
         'id' => 'integer',
-        'numero' => 'integer',
-        'votos' => 'integer',
-        'percentual' => 'decimal:2',
+        'eleitores' => 'integer',
+        'urnas_apuradas' => 'decimal:2',
     ];
 
     protected array $schema = [
         'id' => 'integer',
-        'numero' => 'integer',
-        'nome' => 'string',
-        'votos' => 'integer',
-        'percentual' => 'float',
+        'eleitores' => 'integer',
+        'urnas_apuradas' => 'float',
     ];
 
     public function getRows(): array
     {
-        if (! Storage::drive('local')->exists('votos.json')) {
+        if (! Storage::drive('local')->exists('apuracao.json')) {
             return [];
         }
 
-        $json = Storage::drive('local')->get('votos.json');
+        $json = Storage::drive('local')->get('apuracao.json');
 
         return \collect(\json_decode($json, true, 512, \JSON_THROW_ON_ERROR))
             ->values()
@@ -40,7 +37,7 @@ class Resultado extends Model
 
     protected function sushiShouldCache(): bool
     {
-        if (! Storage::drive('local')->exists('votos.json')) {
+        if (! Storage::drive('local')->exists('apuracao.json')) {
             return false;
         }
 
@@ -49,6 +46,6 @@ class Resultado extends Model
 
     protected function sushiCacheReferencePath(): string
     {
-        return \storage_path('app/votos.json');
+        return \storage_path('app/apuracao.json');
     }
 }
