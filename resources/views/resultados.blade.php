@@ -11,7 +11,7 @@
 
 <body>
 <main class="container my-4">
-    <header class="d-flex align-items-end mb-3">
+    <header class="d-flex align-items-baseline mb-3">
         <h1 class="mb-0">Resultados 2022</h1>
 
         <span class="ms-3">
