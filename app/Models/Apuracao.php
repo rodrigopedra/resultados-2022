@@ -14,12 +14,14 @@ class Apuracao extends Model
         'id' => 'integer',
         'eleitores' => 'integer',
         'urnas_apuradas' => 'decimal:2',
+        'atualizado_em' => 'datetime',
     ];
 
     protected array $schema = [
         'id' => 'integer',
         'eleitores' => 'integer',
         'urnas_apuradas' => 'float',
+        'atualizado_em' => 'string',
     ];
 
     public function getRows(): array
