@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class BaixaVotos extends Command
 {
-    private const URL = 'https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json';
+    private const URL = 'https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/br/br-c0001-e000545-r.json';
 
     protected $signature = 'app:baixa-votos';
 
