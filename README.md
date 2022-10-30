@@ -33,7 +33,7 @@ Como a ideia é rodar localmente apenas como exercício, não precisa mexer com 
 Abre um terminal/console e inicia o deamnon do scheduler:
 
 ~~~
-php artisan shedule:work
+php artisan schedule:work
 ~~~
 
 Deixa este terminal aberto que ele vai executar sozinho.
